@@ -38,6 +38,7 @@ function renderStockTicker(stockData) {
     const stockDisplayPrice = document.getElementById('price')
     stockDisplayPrice.innerText = price
     const stockDisplayPriceIcon = document.getElementById('price-icon')
+    stockDisplayPriceIcon.innerHTML = '<img src="./svg/green.svg"></img>'
     const stockDisplayTime = document.getElementById('time')
     stockDisplayTime.innerText = time
 }
