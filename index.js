@@ -24,22 +24,36 @@ Challenge:
 
 import { getStockData } from "./fakeStockAPI.js";
 
+let previousStockData = null
+
 setInterval(() => {
+
   let currentStockData = getStockData()
-  renderStockTicker(currentStockData)  
+  renderStockTicker(currentStockData)
 }, 1500);
 
 function renderStockTicker(stockData) {
-    let { name,sym, price, time} = stockData
-    const stockDisplayName = document.getElementById('name')
-    stockDisplayName.innerText = name
-    const stockDisplaySymbol = document.getElementById('symbol')
-    stockDisplaySymbol.innerText = sym
-    const stockDisplayPrice = document.getElementById('price')
-    stockDisplayPrice.innerText = price
-    const stockDisplayPriceIcon = document.getElementById('price-icon')
-    stockDisplayPriceIcon.innerHTML = '<img src="./svg/green.svg"></img>'
-    const stockDisplayTime = document.getElementById('time')
-    stockDisplayTime.innerText = time
+  const stockDisplayName = document.getElementById('name')
+  const stockDisplaySymbol = document.getElementById('symbol')
+  const stockDisplayPrice = document.getElementById('price')
+  const stockDisplayPriceIcon = document.getElementById('price-icon')
+  const stockDisplayTime = document.getElementById('time')
+
+  let { name, sym, price, time } = stockData
+
+  stockDisplayName.innerText = name
+  stockDisplaySymbol.innerText = sym
+  stockDisplayPrice.innerText = price
+  stockDisplayTime.innerText = time
+
+  const priceDirectionIcon = price > previousStockData ? 'green.svg' :
+                            price < previousStockData ? 'red.svg' : 'grey.svg'
+
+  let template = `<img src="./svg/${priceDirectionIcon}"></img>`
+  
+  stockDisplayPriceIcon.innerHTML = ''
+  stockDisplayPriceIcon.innerHTML += template
+  previousStockData = price
+  
 }
 
